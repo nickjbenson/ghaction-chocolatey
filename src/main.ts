@@ -17,7 +17,9 @@ async function run() {
 
     if (os.platform() == 'win32') {
       core.info('🏃 Running Choco...');
-      await exec.exec(`choco.exe ${args} --allow-unofficial`);
+      // Some downloads take a long time, and Choco makes this EXTREMELY wordy!
+      // Pipe output to $null to silence on PowerShell...
+      await exec.exec(`$null = choco.exe ${args} --allow-unofficial`);
       return;
     }
 
